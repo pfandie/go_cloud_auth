@@ -1,0 +1,23 @@
+language: go
+
+go:
+  - 1.15
+go_import_path: github.com/pfandie/go_cloud_auth
+env:
+  - "PATH=/home/travis/gopath/bin:$PATH"
+before_install:
+  - export GIT_TAG=$(git describe --tags --abbrev=0)
+  - go get github.com/mitchellh/gox
+  - go get github.com/tcnksm/ghr
+  - go get github.com/axw/gocov/gocov
+  - go get github.com/mattn/goveralls
+branches:
+  only:
+    - master
+script:
+  - go test -v -covermode=count -coverprofile=coverage.out ./...
+  - goveralls -coverprofile=coverage.out -service travis-ci -repotoken $COVERALLS_TOKEN
+after_success:
+  - gox -output "dist/{{.Dir}}_{{.OS}}_{{.Arch}}"
+  - chmod +x dist/*
+  - ghr -u $GITHUB_USER -t $GITHUB_TOKEN --replace $GIT_TAG dist/
