@@ -6,9 +6,11 @@
 [![GoDoc](https://img.shields.io/badge/godoc-reference-5272B4.svg)](https://pkg.go.dev/github.com/pfandie/go_cloud_auth)
 [![MIT License](https://img.shields.io/badge/license-Apache-blueviolet.svg)][license]
 [![GitHub release](https://img.shields.io/github/release/pfandie/go_cloud_auth.svg)][release]
+[![Maintainability](https://api.codeclimate.com/v1/badges/3f963565edd4aa310d27/maintainability)][maintain]
 
 [release]: https://github.com/pfandie/go_cloud_auth/releases
 [license]: https://github.com/pfandie/go_cloud_auth/blob/master/LICENSE
+[maintain]: https://codeclimate.com/github/pfandie/go_cloud_auth/maintainability
 
 A tool to get temporary AWS credentials
 
@@ -72,6 +74,7 @@ configs:
 ### Open ToDos
 
 - add examples
+- check if default config exists (config may include another config file)
 - implement tests
 - allow custom setting for shared credentials
 - allow custom config files
