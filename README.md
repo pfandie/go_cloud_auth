@@ -84,3 +84,25 @@ configs:
 - add 'real' cobra commands for direct auth/configs
 - add viper for config handling
 - cleanup code
+
+### Know issues with WSL
+
+WSL has no gui, if you run the mfa function right now, you will get an error message like `cannot open display`.
+See <https://github.com/zalando/go-keyring/issues/48>
+
+Shortcut to help on this issue:
+* one extra sh session
+* password prompt on every sh session
+* extra dbus session for every sh
+
+`apt-get install gnome-keyring dbus-x11 searhorse`
+
+```bash
+# .bashrc / .zshrc
+if [ "$DBUS_SESSION_BUS_ADDRESS" = "" ]
+then
+   exec dbus-run-session -- zsh
+else
+   echo "$(/lib/cryptsetup/askpass 'Password: ')" | gnome-keyring-daemon --unlock
+fi
+```
