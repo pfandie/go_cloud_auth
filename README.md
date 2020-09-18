@@ -84,7 +84,3 @@ configs:
 - add 'real' cobra commands for direct auth/configs
 - add viper for config handling
 - cleanup code
-
-## Author
-
-[Hans Mayer](https://github.com/pfandie)
