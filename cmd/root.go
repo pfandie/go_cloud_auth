@@ -19,6 +19,7 @@ package cmd
 import (
 	"fmt"
 	"go_cloud_auth/awsconfig"
+	"log"
 	"os"
 
 	"github.com/manifoldco/promptui"
@@ -31,7 +32,7 @@ var cfgFile string
 var rootCmd = &cobra.Command{
 	Use:   "go_cloud_auth",
 	Short: "A go based CLI wrapper to assume an AWS session for interact with different AWS accounts",
-	Long: `GO_Cloud Auth is a CLI wrapper to assume specific AWS roles for any provided subaccount.
+	Long: `GO_Cloud Auth is a CLI wrapper to assume specific AWS roles for any provided sub-account.
 Configure your Account IDs, MFA profiles and role names.
 
 The information will be stored in your OS-KeyChain and used to assume different AWS-roles.
@@ -69,7 +70,7 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
-// awsInit prettyfied user input
+// awsInit prettified user input
 func awsInit(cmd *cobra.Command) {
 	prompt := promptui.Select{
 		Label: "Please select",
@@ -93,28 +94,25 @@ func awsInit(cmd *cobra.Command) {
 	switch i {
 	case 0:
 		awsconfig.Authenticate()
-		break
 	case 1:
 		awsconfig.UpdateProfile()
-		break
 	case 2:
 		awsconfig.NewProfile()
-		break
 	case 3:
 		awsconfig.MfaToken()
-		os.Exit(0)
-		break
 	case 4:
-		cmd.Help()
-		os.Exit(0)
-		break
+		err := cmd.Help()
+		if err != nil {
+			log.Fatal(err)
+		}
 	case 5:
+		// just exit the game
 		os.Exit(0)
-		break
 	default:
-		cmd.Help()
-		os.Exit(0)
-		break
+		err := cmd.Help()
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 }
 

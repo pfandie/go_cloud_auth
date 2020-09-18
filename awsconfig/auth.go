@@ -66,7 +66,7 @@ func Authenticate() {
 	// token, err := getAwsSession(c)
 	token := utils.GetAuthToken(c.TokenProfile)
 
-	creds, err := initalizeAwsSession(c, token)
+	creds, err := initializeAwsSession(c, token)
 	if err != nil {
 		log.Fatalf("%v\n", err)
 	}
@@ -124,10 +124,10 @@ func setProfileSimple(c *credentials.Value, profile string, region string) {
 	fmt.Printf("Set successful region %s for profile %s\n", region, profile)
 }
 
-// initalizeAwsSession gets credentials for temp session
-func initalizeAwsSession(c *models.AwsUserConfig, token string) (*credentials.Value, error) {
+// initializeAwsSession gets credentials for temp session
+func initializeAwsSession(c *models.AwsUserConfig, token string) (*credentials.Value, error) {
 	sess := session.Must(session.NewSessionWithOptions(session.Options{
-		Profile: c.PeronalProfile,
+		Profile: c.PersonalProfile,
 		Config: aws.Config{
 			Region: aws.String(c.Region),
 		},

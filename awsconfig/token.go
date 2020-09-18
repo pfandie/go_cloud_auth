@@ -58,6 +58,5 @@ func MfaToken() {
 		break
 	default:
 		os.Exit(0)
-		break
 	}
 }

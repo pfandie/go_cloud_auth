@@ -16,7 +16,7 @@ A tool to get temporary AWS credentials
 
 ## What does
 
-`go_cloud_auth` makes assume roles easier. With multuple accounts it gets even more easier. No more struggle with messing around with multiple account_ids and different roles to assume. It even comes with it´s own basic MFA (HOTP/TOTP) generation.
+`go_cloud_auth` makes assume roles easier. With multiple accounts it gets even easier. No more struggle with messing around with multiple account_ids and different roles to assume. It even comes with it´s own basic MFA (HOTP/TOTP) generation.
 
 ## Installation
 
@@ -33,7 +33,7 @@ go install go_cloud_auth
 go_cloud_auth
 ```
 
-Or use the downloade binary
+Or use the downloaded binary
 
 ## Example config
 
@@ -82,7 +82,7 @@ configs:
 - add profile update/change/delete
 - add validation for settings
 - add 'real' cobra commands for direct auth/configs
-- add viper for config handling
+- add viper package for config handling
 - cleanup code
 
 ### Know issues with WSL
@@ -92,7 +92,7 @@ See <https://github.com/zalando/go-keyring/issues/48>
 
 Shortcut to help on this issue:
 * one extra sh session
-* password prompt on every sh session
+* password is prompt on every sh session
 * extra dbus session for every sh
 
 `apt-get install gnome-keyring dbus-x11 searhorse`

@@ -21,11 +21,11 @@ type AwsUserConfig struct {
 	// TODO: implement validation
 	AccountDestination string "yaml:\"account_destination\"" // must have exact 12 digits
 	AccountSource      string "yaml:\"account_source\""      // must have exact 12 digits 826934983476
-	PeronalProfile     string "yaml:\"personal_profile\""    // appgile_root
-	AwsProfileName     string "yaml:\"aws_profile\""         // appgile_master
-	TokenProfile       string "yaml:\"token_profile\""       // otp - appgile
+	PersonalProfile    string "yaml:\"personal_profile\""    // personal root profile (e.g. default)
+	AwsProfileName     string "yaml:\"aws_profile\""         // profile name to be saved
+	TokenProfile       string "yaml:\"token_profile\""       // otp - name of your mfa key
 	Duration           string "yaml:\"duration\""            // 36000
-	AwsUserName        string "yaml:\"aws_username\""        // hans.mayer
-	RoleName           string "yaml:\"role_name\""           // appgile/appgile_master
+	AwsUserName        string "yaml:\"aws_username\""        // your.username
+	RoleName           string "yaml:\"role_name\""           // role_path/role_name
 	Region             string "yaml:\"region\""              // eu-central-1
 }

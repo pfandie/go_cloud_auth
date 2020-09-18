@@ -145,7 +145,7 @@ func generateHotpToken(secret string, t uint64) (pass string) {
 	mac := hmac.New(hash, secretAsBytes)
 	mac.Write(buffer)
 	h := mac.Sum(nil)
-	offset := (h[19] & 15)
+	offset := h[19] & 15
 
 	var header uint32
 	reader := bytes.NewReader(h[offset : offset+4])
@@ -155,7 +155,7 @@ func generateHotpToken(secret string, t uint64) (pass string) {
 	}
 
 	h12 := (int(header) & 0x7fffffff) % 1000000
-	otp := int(h12)
+	otp := h12
 
 	return padleft0(otp, 6)
 }

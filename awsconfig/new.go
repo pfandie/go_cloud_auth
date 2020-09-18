@@ -54,7 +54,7 @@ func NewProfile() {
 			Validate: survey.Required,
 		},
 		{
-			Name: "PeronalProfile",
+			Name: "PersonalProfile",
 			Prompt: &survey.Input{
 				Message: "Personal AWS profile to use?",
 				Help:    "AWS profile, which holds your personal AWS credentials/config",
@@ -82,7 +82,7 @@ func NewProfile() {
 			Prompt: &survey.Input{
 				Message: "How long to assume this role (in seconds)?",
 				Default: "3600",
-				Help:    "Durataion of assuming the role, defaults to 3600 seconds",
+				Help:    "Duration of assuming the role, defaults to 3600 seconds",
 			},
 		},
 		{
@@ -114,7 +114,7 @@ func NewProfile() {
 	userConf := models.AwsUserConfig{
 		AccountDestination: "survey:AccountDestination",
 		AccountSource:      "survey:AccountSource",
-		PeronalProfile:     "survey:PeronalProfile",
+		PersonalProfile:    "survey:PersonalProfile",
 		AwsProfileName:     "survey:AwsProfileName",
 		TokenProfile:       "survey:TokenProfile",
 		Duration:           "survey:Duration",
@@ -151,7 +151,7 @@ func showConfig(c *models.Configs) bool {
 	fmt.Printf("\nProfile name: %s\n", c.ConfigName)
 	fmt.Printf("Account Destination: %s\n", c.AwsConfig.AccountDestination)
 	fmt.Printf("Account Source: %s\n", c.AwsConfig.AccountSource)
-	fmt.Printf("Personal root profile: %s\n", c.AwsConfig.PeronalProfile)
+	fmt.Printf("Personal root profile: %s\n", c.AwsConfig.PersonalProfile)
 	fmt.Printf("AWS profile name: %s\n", c.AwsConfig.AwsProfileName)
 	fmt.Printf("OTP profile: %s\n", c.AwsConfig.TokenProfile)
 	fmt.Printf("Session duration: %s\n", c.AwsConfig.Duration)

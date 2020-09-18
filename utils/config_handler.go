@@ -21,35 +21,39 @@ import (
 	"fmt"
 	"go_cloud_auth/models"
 	"io/ioutil"
+	"log"
 	"os"
 
-	homedir "github.com/mitchellh/go-homedir"
+	"github.com/mitchellh/go-homedir"
 	"gopkg.in/yaml.v2"
 )
 
 var home, _ = homedir.Dir()
 
-//TODO: add custom configfile as func param
-var configfile = home + "/.go_cloud_auth.yml"
+//TODO: add custom config file as func param
+var configFile = home + "/.go_cloud_auth.yml"
 
 // SaveConfig stores a yaml Configuration
-func SaveConfig(conf *models.Configs) error {
+func SaveConfig(conf *models.Configs) {
 	existingConf, _ := LoadConfig()
 
 	c, err := createConfig(conf, existingConf)
 
 	if err != nil {
-		fmt.Println("Profile already exists!")
-		return err
+		log.Fatal(err)
+		//fmt.Println("Profile already exists!")
 	}
 
 	bytes, err := yaml.Marshal(c)
 	if err != nil {
-		return err
+		log.Fatal(err)
 	}
 
+	err = ioutil.WriteFile(configFile, bytes, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println("New config saved!")
-	return ioutil.WriteFile(configfile, bytes, 0644)
 }
 
 // ChangeConfig updates an existing yaml Configuration
@@ -64,12 +68,12 @@ func DeleteConfig() {
 
 // LoadConfig yaml json Configuration
 func LoadConfig() (*models.Configuration, error) {
-	fileExist, _ := fileExists(configfile)
+	fileExist, _ := fileExists(configFile)
 	if !fileExist {
-		return &models.Configuration{}, errors.New("File: configfile could not be read")
+		return &models.Configuration{}, errors.New("file: config file could not be read")
 	}
 
-	bytes, err := ioutil.ReadFile(configfile)
+	bytes, err := ioutil.ReadFile(configFile)
 	if err != nil {
 		return &models.Configuration{}, err
 	}
@@ -85,12 +89,12 @@ func LoadConfig() (*models.Configuration, error) {
 
 // LoadConfigByName configuration by given name
 func LoadConfigByName(name string) (*models.AwsUserConfig, error) {
-	fileExist, _ := fileExists(configfile)
+	fileExist, _ := fileExists(configFile)
 	if !fileExist {
-		return &models.AwsUserConfig{}, errors.New("File: configfile could not be read")
+		return &models.AwsUserConfig{}, errors.New("file: config file could not be read")
 	}
 
-	bytes, err := ioutil.ReadFile(configfile)
+	bytes, err := ioutil.ReadFile(configFile)
 	if err != nil {
 		return &models.AwsUserConfig{}, err
 	}
@@ -127,7 +131,7 @@ func GetAllProfileNames() ([]string, error) {
 		return profiles, nil
 	}
 
-	return nil, errors.New("No profiles found in config file")
+	return nil, errors.New("no profiles found in config file")
 }
 
 // fileExists validates if a file exists
@@ -147,7 +151,7 @@ func createConfig(newConf *models.Configs, conf *models.Configuration) (*models.
 		fmt.Println(conf.Configs[i].ConfigName)
 		fmt.Println(newConf.ConfigName)
 		if conf.Configs[i].ConfigName == newConf.ConfigName {
-			return conf, errors.New("A configurtation with this name already exists")
+			return conf, errors.New("A configuration with this name already exists")
 		}
 	}
 
